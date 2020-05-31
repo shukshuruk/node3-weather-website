@@ -3,11 +3,9 @@ const searchElement = document.querySelector('input')
 const messageOne = document.querySelector('#message-1')
 const messageTwo = document.querySelector('#message-2')
 
-// messageOne.textContent = 'From js'
-
 weatherForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    messageOne.textContent = 'Loading...'
+    messageOne.innerHTML = '<p>Loading...</p>'
     messageTwo.textContent = ''
     
     const location = searchElement.value
@@ -15,10 +13,10 @@ weatherForm.addEventListener('submit', (event) => {
     fetch('/weather?address=' + encodeURIComponent(location)).then((response) => {
     response.json().then((data) => {
         if(data.error) {
-            messageOne.textContent = ''
+            messageOne.innerHTML = '<p></p>'
             messageTwo.textContent = data.error
         } else {
-            messageOne.textContent = data.location
+            messageOne.innerHTML = '<p><img src=' + data.icon +'></p>'
             messageTwo.textContent = data.forecast            
         }
     })
